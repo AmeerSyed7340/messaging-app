@@ -36,8 +36,8 @@ function App() {
     <>
       <div className='full-content'>
         <div className='display'>
-          {allMsg.map(msg => (
-            <li key={msg._id}>Message 1: {msg}</li>
+          {allMsg.map((msg, index) => (
+            <li key={index}>Message: {msg}</li>
           ))}
         </div>
         <div className="input-text">
