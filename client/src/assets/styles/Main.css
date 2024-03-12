@@ -1,0 +1,13 @@
+*{
+    border: 1px solid red;
+}
+.display {
+    height: 700px;
+    width: 1200px;
+    background-color: aquamarine;
+}
+
+.msg-input{
+    width: 80%;
+    height: 50%;
+}
