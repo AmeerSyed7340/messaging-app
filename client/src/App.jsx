@@ -2,47 +2,44 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import '../src/assets/styles/Main.css'
 
+
 function App() {
   const [message, setMessage] = useState('');
+  const [allMsg, setAllMsg] = useState(['a','b','c']);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      //Make API call with Fetch API 
-      const response = await fetch('http://localhost:3000', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: message })
-      })
-        .then((response) =>
-          response.json()
-        )
-        .then(data => {
-          console.log(data);
-        });
-
-      //Make sure response is okay
-      // if(response.ok){
-
-      //   setMessage('');
-      // }
-      // else{
-      //   //HTTP error
-      //   console.error('Failed to send message')
-      // }
-    }
-    catch (error) {
-      //handle network errors
-      console.error('Network Error in submitting message: ', error)
-    }
-  }//handleSubmit
-
+    fetch('http://localhost:3000', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: message })
+    })
+    .then(response => {
+      if(response.ok) {
+        return response.json();          
+      } else {
+        throw new Error('Response error'); // Will be caught by the .catch() block
+      }
+    })
+    .then(data => {
+      console.log(data); // Process your data here
+      setMessage(''); // Clear message or handle success
+    })
+    .catch(error => {
+      console.error('Error in submitting message:', error); // Handle any errors from the fetch or processing
+    });
+  };
+  
   return (
     <>
       <div className='full-content'>
-        <div className='display'></div>
+        <div className='display'>
+          {allMsg.map(msg => (
+            <li key={msg._id}>Message 1: {msg}</li>
+          ))}
+        </div>
         <div className="input-text">
           <form onSubmit={handleSubmit}>
             <textarea value={message} onChange={(e) => setMessage(e.target.value)} cols="100" rows="1"></textarea>
