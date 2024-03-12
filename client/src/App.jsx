@@ -5,7 +5,23 @@ import '../src/assets/styles/Main.css'
 
 function App() {
   const [message, setMessage] = useState('');
-  const [allMsg, setAllMsg] = useState(['a','b','c']);
+  const [allMsg, setAllMsg] = useState([]);
+
+  //retrieve existing messages on mount
+  useEffect(()=>{
+    fetch('http://localhost:3000')
+    .then(response => {
+      if(response.ok){
+        return response.json();
+      }else{
+        throw new Error('Response error in UseEffect');
+      }
+    })
+    .then(data => {
+      console.log(data);
+      setAllMsg(data.allMsg);
+    })
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +36,7 @@ function App() {
       if(response.ok) {
         return response.json();          
       } else {
-        throw new Error('Response error'); // Will be caught by the .catch() block
+        throw new Error('Response error in handleSubmit'); // Will be caught by the .catch() block
       }
     })
     .then(data => {
@@ -37,7 +53,7 @@ function App() {
       <div className='full-content'>
         <div className='display'>
           {allMsg.map((msg, index) => (
-            <li key={index}>Message: {msg}</li>
+            <li key={index}>{msg.message}</li>
           ))}
         </div>
         <div className="input-text">
