@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 import '../src/assets/styles/Main.css'
 
 
@@ -33,13 +32,14 @@ function App() {
       body: JSON.stringify({ message: message })
     })
     .then(response => {
-      if(response.ok) {
+      if(response.ok) {        
         return response.json();          
       } else {
         throw new Error('Response error in handleSubmit'); // Will be caught by the .catch() block
       }
     })
     .then(data => {
+      setAllMsg(prev => [...prev, data.newMsg]);
       console.log(data); // Process your data here
       setMessage(''); // Clear message or handle success
     })
@@ -48,12 +48,18 @@ function App() {
     });
   };
   
+  //format date function
+  const formatDate = (dateString) => {
+    const options = {year: 'numeric', month: 'long', day: 'numeric'};
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
+
   return (
     <>
       <div className='full-content'>
         <div className='display'>
           {allMsg.map((msg, index) => (
-            <li key={index}>{msg.message}</li>
+            <li key={index}><p>{msg.message}</p> <p>{formatDate(msg.createdAt)}</p></li>
           ))}
         </div>
         <div className="input-text">

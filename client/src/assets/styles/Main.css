@@ -1,13 +1,25 @@
-*{
-    border: 1px solid red;
-}
+
 .display {
     height: 700px;
     width: 1200px;
-    background-color: aquamarine;
+    background-color: #990011;   
+    padding: 10px; 
+    overflow:auto;
 }
 
-.msg-input{
-    width: 80%;
-    height: 50%;
+li {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FCF6F5;
+    margin: 10px;
+    padding: 10px;
+    margin-bottom: 10px; /* Space between messages */
+    color: black;
+    
+}
+
+form{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }
