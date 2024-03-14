@@ -23,3 +23,9 @@ form{
     display: flex;
     gap: 10px;
 }
+
+.msg{
+    word-break: break-all;
+    white-space: normal;
+    max-width: 50%;
+}

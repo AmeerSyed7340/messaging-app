@@ -59,7 +59,7 @@ function App() {
       <div className='full-content'>
         <div className='display'>
           {allMsg.map((msg, index) => (
-            <li key={index}><p>{msg.message}</p> <p>{formatDate(msg.createdAt)}</p></li>
+            <li key={index}><p className='msg'>{msg.message}</p> <p>{formatDate(msg.createdAt)}</p></li>
           ))}
         </div>
         <div className="input-text">
